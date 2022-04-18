@@ -1,0 +1,28 @@
+App\Entity\Secteur:
+  category1:
+    name: 'Pharmacie'
+
+  category2:
+    name: 'Alimentaire'
+
+  category3:
+    name: 'Bâtiment'
+
+  category4:
+    name: 'Peinture'
+
+  category5:
+    name: 'Industrie'
+
+  category6:
+    name: 'Cosmétique'
+
+  category7:
+    name: 'Automobile'
+
+  category8:
+    name: 'Chimie'
+
+  category9:
+    name: 'Écoles'
+

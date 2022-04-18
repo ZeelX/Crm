@@ -23,9 +23,6 @@ Encore
     .addEntry('styles', './assets/styles/main.scss')
     .addEntry('scripts', './assets/scripts/main.ts')
 
-    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
-    .enableStimulusBridge('./assets/controllers.json')
-
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 
@@ -57,10 +54,10 @@ Encore
     })
 
     // enables Sass/SCSS support
-    enableSassLoader()
+    .enableSassLoader()
 
     // uncomment if you use TypeScript
-    enableTypeScriptLoader()
+    .enableTypeScriptLoader()
 
     // uncomment if you use React
     //.enableReactPreset()

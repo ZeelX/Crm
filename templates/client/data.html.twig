@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Donnée du client{% endblock %}
+
+{% block body %}
+    <h1>Donnée du Client</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ client.id }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ client.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ client.nom }}</td>
+            </tr>
+            <tr>
+                <th>Entreprise</th>
+                <td>{{ client.entreprise }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ client.mail }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ client.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ client.adresse }}, {{ client.CodePostal }} {{ client.ville }}</td>
+            </tr>
+
+            <tr>
+                <th>NotePerso</th>
+                <td>{{ client.notePerso }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-success" href="{{ path('app_client_data_download', {'id': client.id})  }}">Exporter les données</a>
+
+
+    <a href="{{ path('app_client_index') }}">back to list</a>
+
+
+
+    {{ include('client/_delete_form.html.twig') }}
+{% endblock %}
