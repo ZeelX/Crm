@@ -37,8 +37,8 @@ class Client
     #[ORM\JoinColumn(nullable: false)]
     private $secteur;
 
-    #[ORM\OneToMany(mappedBy: 'client', targetEntity: ContratEnded::class)]
-    private $contratEnded;
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Contrat::class)]
+    private $contrat;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Adresse;
@@ -51,7 +51,7 @@ class Client
 
     public function __construct()
     {
-        $this->contratEnded = new ArrayCollection();
+        $this->contrat = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,29 +144,29 @@ class Client
     }
 
     /**
-     * @return Collection<int, ContratEnded>
+     * @return Collection<int, Contrat>
      */
-    public function getContratEnded(): Collection
+    public function getContrat(): Collection
     {
-        return $this->contratEnded;
+        return $this->contrat;
     }
 
-    public function addContratEnded(ContratEnded $contratEnded): self
+    public function addContrat(Contrat $contrat): self
     {
-        if (!$this->contratEnded->contains($contratEnded)) {
-            $this->contratEnded[] = $contratEnded;
-            $contratEnded->setClient($this);
+        if (!$this->contrat->contains($contrat)) {
+            $this->contrat[] = $contrat;
+            $contrat->setClient($this);
         }
 
         return $this;
     }
 
-    public function removeContratEnded(ContratEnded $contratEnded): self
+    public function removeContratEnded(Contrat $contrat): self
     {
-        if ($this->contratEnded->removeElement($contratEnded)) {
+        if ($this->contrat->removeElement($contrat)) {
             // set the owning side to null (unless already changed)
-            if ($contratEnded->getClient() === $this) {
-                $contratEnded->setClient(null);
+            if ($contrat->getClient() === $this) {
+                $contrat->setClient(null);
             }
         }
 
@@ -207,5 +207,10 @@ class Client
         $this->ville = $ville;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getPrenom()." ".$this->getNom().", ".$this->getEntreprise();
     }
 }

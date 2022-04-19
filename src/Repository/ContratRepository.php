@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\ContratEnded;
+use App\Entity\Contrat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method ContratEnded|null find($id, $lockMode = null, $lockVersion = null)
- * @method ContratEnded|null findOneBy(array $criteria, array $orderBy = null)
- * @method ContratEnded[]    findAll()
- * @method ContratEnded[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Contrat|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Contrat|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Contrat[]    findAll()
+ * @method Contrat[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ContratEndedRepository extends ServiceEntityRepository
+class ContratRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ContratEnded::class);
+        parent::__construct($registry, Contrat::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(ContratEnded $entity, bool $flush = true): void
+    public function add(Contrat $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class ContratEndedRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(ContratEnded $entity, bool $flush = true): void
+    public function remove(Contrat $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {

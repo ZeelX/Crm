@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ContratEndedRepository;
+use App\Repository\ContratRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ContratEndedRepository::class)]
-class ContratEnded
+#[ORM\Entity(repositoryClass: ContratRepository::class)]
+class Contrat
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,7 +25,7 @@ class ContratEnded
     #[ORM\Column(type: 'text', nullable: true)]
     private $noteperso;
 
-    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'contratEnded')]
+    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'contrat')]
     #[ORM\JoinColumn(nullable: false)]
     private $client;
 
