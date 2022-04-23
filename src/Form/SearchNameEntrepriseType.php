@@ -16,6 +16,7 @@ class SearchNameEntrepriseType extends AbstractType
         $builder
 
                ->add('nom', TextType::class, [
+                   'label' => 'Nom ou entreprise'
                                   ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Rechercher',

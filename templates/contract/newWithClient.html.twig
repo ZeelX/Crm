@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un contrat{% endblock %}
+
+{% block body %}
+    <h1>Create new Contrat</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.client) }}
+    {{ form_widget(form) }}
+    <div class="text-center align-items-center justify-content-center">
+        <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+    </div>
+    {{ form_end(form) }}
+
+
+    <a href="{{ path('app_contract_index') }}">back to list</a>
+{% endblock %}

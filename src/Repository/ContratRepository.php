@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Client;
 use App\Entity\Contrat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -45,6 +46,17 @@ class ContratRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function findWithClient(Client $client)
+    {
+
+        $qb = $this->createQueryBuilder('contrat')
+            ->innerJoin('contrat.client', 's')
+            ->where('s.id IN (:data_ids)')
+            ->setParameter('data_ids', $client);
+        return $qb->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return ContratEnded[] Returns an array of ContratEnded objects
     //  */

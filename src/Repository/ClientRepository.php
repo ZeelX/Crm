@@ -76,6 +76,16 @@ class ClientRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findContract($contrats)
+    {
+
+        $qb = $this->createQueryBuilder('client')
+            ->innerJoin('client.contrat', 'co')
+            ->where('co.id IN (:data_ids)')
+            ->setParameter('data_ids', $contrats);
+        return $qb->getQuery()
+            ->getResult();
+    }
 
 
 

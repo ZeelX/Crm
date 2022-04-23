@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
+
 use App\Repository\ContratRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 #[ORM\Entity(repositoryClass: ContratRepository::class)]
 class Contrat
@@ -28,6 +30,17 @@ class Contrat
     #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'contrat')]
     #[ORM\JoinColumn(nullable: false)]
     private $client;
+
+    /**
+     * @param $id
+     */
+    public function __construct()
+    {
+        $propertyAccessor = PropertyAccess::createPropertyAccessorBuilder()
+            ->enableMagicCall()
+            ->getPropertyAccessor();
+    }
+
 
     public function getId(): ?int
     {
@@ -93,4 +106,17 @@ class Contrat
 
         return $this;
     }
+
+    public function __call($name, $args)
+    {
+        $property = lcfirst(substr($name, 3));
+        if (str_starts_with($name, 'get')) {
+            return $this->children[$property] ?? null;
+        } elseif (str_starts_with($name, 'set')) {
+            $value = 1 == count($args) ? $args[0] : null;
+            $this->children[$property] = $value;
+        }
+    }
+
+
 }

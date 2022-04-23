@@ -20,7 +20,7 @@ class SearchType extends AbstractType
             ->add('secteur', EntityType::class, [
         'class' => Secteur::class,
         'choice_label' => 'name',
-        'label' => 'secteur',
+        'label' => 'Secteur',
         'expanded' => true
     ])
             ->add('submit', SubmitType::class, [

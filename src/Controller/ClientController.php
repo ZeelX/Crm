@@ -7,6 +7,7 @@ use App\Form\ClientType;
 use App\Form\SearchNameEntrepriseType;
 use App\Form\SearchType;
 use App\Repository\ClientRepository;
+use App\Repository\ContratRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,15 +19,19 @@ class ClientController extends AbstractController
 {
     private ClientRepository $cr;
     private EntityManagerInterface $em;
+    private ContratRepository $cor;
 
     /**
      * @param ClientRepository $cr
+     * @param ContratRepository $cor
      * @param EntityManagerInterface $em
      */
-    public function __construct(ClientRepository $cr, EntityManagerInterface $em)
+    public function __construct(ClientRepository $cr,ContratRepository $cor, EntityManagerInterface $em)
     {
         $this->cr = $cr;
+        $this->cor = $cor;
         $this->em = $em;
+
     }
 
     #[Route('/', name: 'app_client_index', methods: ['GET', 'POST'])]
@@ -76,27 +81,28 @@ class ClientController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_client_show', methods: ['GET', 'POST'])]
-    public function show(Client $client): Response
+    public function show(Client $client, ContratRepository $cor): Response
     {
         return $this->render('client/show.html.twig', [
             'client' => $client,
+            'contrats' => $cor->findWithClient( $client)
         ]);
     }
 
-    #[Route('/{id}/data', name: 'app_client_data', methods: ['GET'])]
-    public function clientData(Client $client): Response
-    {
-        return $this->render('client/data.html.twig', [
-            'client' => $client,
-        ]);
-    }
-    #[Route('/{id}/data/download', name: 'app_client_data_download', methods: ['GET'])]
-    public function clientDataDownload(Client $client): Response
-    {
-        return $this->render('client/data.html.twig', [
-            'client' => $client,
-        ]);
-    }
+//    #[Route('/{id}/data', name: 'app_client_data', methods: ['GET'])]
+//    public function clientData(Client $client): Response
+//    {
+//        return $this->render('client/data.html.twig', [
+//            'client' => $client,
+//        ]);
+//    }
+//    #[Route('/{id}/data/download', name: 'app_client_data_download', methods: ['GET'])]
+//    public function clientDataDownload(Client $client): Response
+//    {
+//        return $this->render('client/data.html.twig', [
+//            'client' => $client,
+//        ]);
+//    }
 
         #[Route('/{id}/edit', name: 'app_client_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Client $client, ClientRepository $clientRepository): Response

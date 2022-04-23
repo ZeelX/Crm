@@ -5,23 +5,16 @@
 {% block body %}
 
 
-        <div class="row">
-            <div class="offset-3 col-5">
-                {{ form_start(formSearch) }}
-                {{ form_widget(formSearch.nom) }}
-                {{ form_end(formSearch) }}
-            </div>
 
-        </div>
         <div class="row">
-
             <div class="col-3">
-
                 <div class="card">
-                    <div class="card">
+                    {{ form_start(formSearch) }}
+                    {{ form_end(formSearch) }}
+                </div>
+                <div class="card">
                         {{ form_start(form) }}
                         {{ form_end(form) }}
-                    </div>
                 </div>
 
             </div>
@@ -31,6 +24,7 @@
                 <table class="table">
                     <thead>
                     <tr>
+                        <th><input id="checkboxAll" type="checkbox" data-check-all> </th>
                         <th>Prenom</th>
                         <th>Nom</th>
                         <th>Entreprise</th>
@@ -41,6 +35,7 @@
                     <tbody>
                     {% for client in clients %}
                         <tr>
+                            <td><input id="check_client" type="checkbox" data-client-infos="{{client.id}},{{client.nom}},{{client.entreprise}},{{client.mail}}"></td>
                             <td>{{ client.Prenom }}</td>
                             <td>{{ client.Nom }}</td>
                             <td>{{ client.Entreprise }}</td>

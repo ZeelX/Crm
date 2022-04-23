@@ -2,21 +2,42 @@
 
 namespace App\Form;
 
+use App\Entity\Client;
 use App\Entity\Contrat;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class ContratType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('createdAt')
-            ->add('finishedAt')
+            ->add('createdAt', DateType::class,[
+                'label' => 'Date de début du contrat',
+                'widget'=>'single_text',
+            ])
+            ->add('finishedAt', DateType::class, [
+                'label' => 'Date de fin de contrat',
+                'widget'=>'single_text',
+                'required' => false,
+
+            ])
             ->add('mission')
-            ->add('noteperso')
-            ->add('client')
+            ->add('noteperso', TextType::class, [
+                'label' => 'Note Personnel',
+            ])
+            ->add('client', EntityType::class, [
+                'class' => Client::class,
+
+
+
+            ])
         ;
     }
 

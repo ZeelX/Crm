@@ -3,46 +3,79 @@
 {% block title %}Client{% endblock %}
 
 {% block body %}
-    <h1>Client</h1>
+    <div class="row">
+        <div class="offset-4 col-4">
+            <h1>Info Client {{ client.entreprise }}</h1>
+        </div>
+    </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ client.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ client.nom }}</td>
-            </tr>
-            <tr>
-                <th>Entreprise</th>
-                <td>{{ client.entreprise }}</td>
-            </tr>
-            <tr>
-                <th>Mail</th>
-                <td>{{ client.mail }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ client.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ client.adresse }}, {{ client.CodePostal }} {{ client.ville }}</td>
-            </tr>
+    <div class="row d-flex">
+        <div class="col-4 d-flex align-items-center justify-content-between">
+            <a class="btn btn-primary" href="{{ path('app_client_index') }}">Retour à la liste</a>
 
-            <tr>
-                <th>NotePerso</th>
-                <td>{{ client.notePerso }}</td>
-            </tr>
-        </tbody>
-    </table>
+            {{ include('client/_delete_form.html.twig') }}</div>
+    </div>
+    <section>
+        <article>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Prenom du contact</th>
+                    <td>{{ client.prenom }}</td>
+                </tr>
+                <tr>
+                    <th>Nom du contact</th>
+                    <td>{{ client.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Entreprise</th>
+                    <td>{{ client.entreprise }}</td>
+                </tr>
+                <tr>
+                    <th>Mail</th>
+                    <td>{{ client.mail }}</td>
+                </tr>
+                <tr>
+                    <th>Telephone</th>
+                    <td>{{ client.telephone }}</td>
+                </tr>
+                <tr>
+                    <th>Adresse</th>
+                    <td>{{ client.adresse }}, {{ client.CodePostal }} {{ client.ville }}</td>
+                </tr>
 
-    <a href="{{ path('app_client_index') }}">back to list</a>
-    <a href="{{ path('app_client_data', {'id': client.id})  }}">exporter la fiche client</a>
+                <tr>
+                    <th>NotePerso</th>
+                    <td>{{ client.notePerso }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+        <article style="margin-top: 20px;">
+            <h3> Contrat du client</h3>
+            <a class="btn btn-success" href="{{ path('app_contract_newWithClient', {'id': client.id}) }}">Rajouter un contrat </a>
+            <div class="row">
+                {% for contrat in contrats %}
+                    <div class="col-4">
 
-    <a href="{{ path('app_client_edit', {'id': client.id}) }}">edit</a>
 
-    {{ include('client/_delete_form.html.twig') }}
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p class="card-text">{{ contrat.mission }}</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><p style="font-weight: bold"> Début du contrat</p>
+                                    <p>{{ contrat.createdAt | date('d/m/Y') }}</p></li>
+                                <li class="list-group-item"><p style="font-weight: bold"> Fin du contrat</p>
+                                    <p>{{ contrat.finishedAt | date('d/m/Y') }}</p></li>
+                                <li class="list-group-item"><p style="font-weight: bold"> Note Personelle</p>
+                                    <p>{{ contrat.noteperso }}</p></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </article>
+    </section>
 {% endblock %}

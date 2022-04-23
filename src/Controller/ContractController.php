@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
 use App\Entity\Contrat;
 use App\Form\ContratType;
 use App\Repository\ContratRepository;
+use App\Repository\ClientRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +16,23 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/contract')]
 class ContractController extends AbstractController
 {
+
+    private ClientRepository $cr;
+    private EntityManagerInterface $em;
+    private ContratRepository $cor;
+
+    /**
+     * @param ClientRepository $cr
+     * @param ContratRepository $cor
+     * @param EntityManagerInterface $em
+     */
+    public function __construct(ClientRepository $cr,ContratRepository $cor, EntityManagerInterface $em)
+    {
+        $this->cr = $cr;
+        $this->cor = $cor;
+        $this->em = $em;
+
+    }
     #[Route('/', name: 'app_contract_index', methods: ['GET'])]
     public function index(ContratRepository $contratRepository): Response
     {
@@ -30,7 +50,7 @@ class ContractController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $contratRepository->add($contrat);
-            return $this->redirectToRoute('app_contract_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('contract/new.html.twig', [
@@ -39,11 +59,25 @@ class ContractController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_contract_show', methods: ['GET'])]
-    public function show(Contrat $contrat): Response
+    #[Route('/new/{id}', name: 'app_contract_newWithClient', methods: ['GET', 'POST'])]
+    public function newWithClient(Request $request, $id, ContratRepository $contratRepository): Response
     {
-        return $this->render('contract/show.html.twig', [
+        $contrat = new Contrat();
+        $client = $this->cr->findOneBy(array('id' => $id));
+        $contrat->setClient($client);
+        $form = $this->createForm(ContratType::class, $contrat);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $contratRepository->add($contrat);
+            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('contract/new.html.twig', [
             'contrat' => $contrat,
+            'form' => $form,
         ]);
     }
 
