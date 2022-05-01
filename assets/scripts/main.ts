@@ -3,6 +3,9 @@ window.addEventListener('load', () => {
     const checkboxs: NodeListOf<HTMLInputElement> = document.querySelectorAll('[data-client-infos]');
     const btnExport: HTMLInputElement = document.querySelector('[data-export]');
     let arrayData = [];
+
+////////////////////////////////////////
+
     checkAll.addEventListener("click", () => {
         if (checkAll.checked) {
             while (arrayData.length) {
@@ -26,6 +29,9 @@ window.addEventListener('load', () => {
             }
         }
     });
+
+////////////////////////////////////////
+
     for (const checkbox of checkboxs) {
         checkbox.addEventListener("click", () => {
             if (checkbox.checked) {
@@ -43,13 +49,14 @@ window.addEventListener('load', () => {
             }
         })
     }
-
     btnExport.addEventListener("click", () => {
 
         exportToTxt("listeClients.csv", arrayData, ["Id", "Nom", "Entreprise", "email"]);
     })
 });
+
 ////////////////////////////////////////
+
 export const exportToTxt = (filename: string, rows: object[], headers?: string[]): void => {
     if (!rows || !rows.length) {
         return;

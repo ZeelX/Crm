@@ -81,11 +81,12 @@ class ClientController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_client_show', methods: ['GET', 'POST'])]
-    public function show(Client $client, ContratRepository $cor): Response
+    public function show(Client $client, ContratRepository $cor, int $id): Response
     {
         return $this->render('client/show.html.twig', [
             'client' => $client,
-            'contrats' => $cor->findWithClient( $client)
+            'contrats' => $cor->findWithClient( $client),
+            'id' => $id
         ]);
     }
 

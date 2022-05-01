@@ -21,16 +21,20 @@ class ContratType extends AbstractType
             ->add('createdAt', DateType::class,[
                 'label' => 'Date de début du contrat',
                 'widget'=>'single_text',
+                'format' => 'yyyy-MM-dd',
             ])
             ->add('finishedAt', DateType::class, [
                 'label' => 'Date de fin de contrat',
                 'widget'=>'single_text',
                 'required' => false,
+                'format' => 'yyyy-MM-dd',
+                'empty_data' => '1900-01-01',
 
             ])
             ->add('mission')
             ->add('noteperso', TextType::class, [
                 'label' => 'Note Personnel',
+                'required' => false,
             ])
             ->add('client', EntityType::class, [
                 'class' => Client::class,

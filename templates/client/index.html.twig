@@ -25,9 +25,12 @@
                     <thead>
                     <tr>
                         <th><input id="checkboxAll" type="checkbox" data-check-all> </th>
-                        <th>Prenom</th>
                         <th>Nom</th>
+                        <th>Prenom</th>
                         <th>Entreprise</th>
+                        <th>Télephone</th>
+                        <th>Mail</th>
+                        <th>Ville</th>
                         <th>Secteur</th>
                         <th>actions</th>
                     </tr>
@@ -36,9 +39,12 @@
                     {% for client in clients %}
                         <tr>
                             <td><input id="check_client" type="checkbox" data-client-infos="{{client.id}},{{client.nom}},{{client.entreprise}},{{client.mail}}"></td>
-                            <td>{{ client.Prenom }}</td>
                             <td>{{ client.Nom }}</td>
+                            <td>{{ client.Prenom }}</td>
                             <td>{{ client.Entreprise }}</td>
+                            <td>{{ client.Telephone }}</td>
+                            <td>{{ client.Mail }}</td>
+                            <td>{{ client.Ville }}</td>
                             <td>{{ client.Secteur }}</td>
                             <td>
                                 <a href="{{ path('app_client_show', {'id': client.id}) }}">show</a>

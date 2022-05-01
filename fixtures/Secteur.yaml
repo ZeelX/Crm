@@ -26,3 +26,6 @@ App\Entity\Secteur:
   category9:
     name: 'Écoles'
 
+  category10:
+    name: 'Non défini'
+

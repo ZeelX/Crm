@@ -89,7 +89,9 @@ class ContractController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $contratRepository->add($contrat);
-            return $this->redirectToRoute('app_contract_index', [], Response::HTTP_SEE_OTHER);
+            $clientId = $form->get('client')->getData();
+
+            return $this->redirectToRoute('app_client_show', [$clientId], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('contract/edit.html.twig', [
