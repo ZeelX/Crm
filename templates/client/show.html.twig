@@ -4,28 +4,23 @@
 
 {% block body %}
     <div class="row">
-        <div class="offset-4 col-4">
+        <div class="offset-4 col-4 d-flex justify-content-center align-items-center">
             <h1>Info Client {{ client.nom }}</h1>
         </div>
     </div>
 
-    <div class="row ">
-        <div class="col-6 offset-3 d-flex align-items-center justify-content-center">
-            <a class="btn btn-primary" href="{{ path('app_client_index') }}">Retour à la liste</a>
+    <div class="row">
+        <div class="col-6 offset-3 d-flex align-items-center justify-content-around bg-dark">
+            <a class="btn btn-dark" href="{{ path('app_client_index') }}">Retour à la liste</a>
 
             {{ include('client/_delete_form.html.twig') }}
 
-            <a class="btn btn-warning" href="{{ path('app_client_edit', {'id': 'id'}) }}">Modifier</a>
+            <a class="btn btn-dark" href="{{ path('app_client_edit', {'id': 'id'}) }}">Modifier</a>
 
-            <a class="btn btn-success" href="{{ path('app_contract_newWithClient', {'id': client.id}) }}">Rajouter un contrat </a>
+            <a class="btn btn-dark" href="{{ path('app_contract_newWithClient', {'id': client.id}) }}">Rajouter un contrat </a>
         </div>
 
     </div>
-
-
-
-
-
 
     <section>
         <article>
@@ -65,8 +60,11 @@
         </article>
         <article style="margin-top: 20px;">
             <div class="row">
-                <div class="div"><div class="col-4 offset-4">            <h3> Contrat du client</h3>
-                    </div></div>
+
+                    <div class="col-4 offset-4 d-flex justify-content-center align-items-center">
+                        <h3> Contrat du client </h3>
+                    </div>
+
             </div>
             <div class="row">
                 {% for contrat in contrats %}
