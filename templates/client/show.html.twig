@@ -5,19 +5,20 @@
 {% block body %}
     <div class="row">
         <div class="offset-4 col-4 d-flex justify-content-center align-items-center">
-            <h1>Info Client {{ client.nom }}</h1>
+            <h1>{{ client.nom }}, {{ client.entreprise }}</h1>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-6 offset-3 d-flex align-items-center justify-content-around bg-dark">
+        <div class="col-12 col-md-6 offset-md-3 d-flex align-items-center justify-content-around bg-dark">
             <a class="btn btn-dark" href="{{ path('app_client_index') }}">Retour à la liste</a>
 
             {{ include('client/_delete_form.html.twig') }}
 
-            <a class="btn btn-dark" href="{{ path('app_client_edit', {'id': 'id'}) }}">Modifier</a>
+            <a class="btn btn-dark" href="{{ path('app_client_edit', {'id': client.id}) }}">Modifier</a>
 
-            <a class="btn btn-dark" href="{{ path('app_contract_newWithClient', {'id': client.id}) }}">Rajouter un contrat </a>
+            <a class="btn btn-dark" href="{{ path('app_contract_newWithClient', {'id': client.id}) }}">Rajouter un
+                contrat </a>
         </div>
 
     </div>
@@ -60,17 +61,43 @@
         </article>
         <article style="margin-top: 20px;">
             <div class="row">
-
-                    <div class="col-4 offset-4 d-flex justify-content-center align-items-center">
-                        <h3> Contrat du client </h3>
-                    </div>
-
-            </div>
-            <div class="row">
+                <h3> Contrat du client </h3>
                 {% for contrat in contrats %}
+                {% if contrat.finishedAt | date('d/m/Y') == "01/01/1900" | date('d/m/Y') %}
+                <div class="row  ">
+
+                    <div class="offset-3 col-6 d-flex justify-content-center align-items_center ">
+                        <h5><i>Contrat en cours</i></h5>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center align-items_center">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <p class="card-text">{{ contrat.mission }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><p style="font-weight: bold"> Début du contrat</p>
+                                <p>{{ contrat.createdAt | date('d/m/Y') }}</p></li>
+                            <li class="list-group-item"><p style="font-weight: bold"> Note Personelle</p>
+                                <p>{{ contrat.noteperso }}</p></li>
+                            <li class="list-group-item">
+                                {# <a class="btn btn-primary" href="{{ path('app_contract_edit', {'id': contrat.id}) }}">edit</a> #}
+                                <a class="btn btn-primary"
+                                   href="{{ path('app_contract_edit', {'id': contrat.id,'clientid':client.id}) }}">edit</a>
+
+                                {{ include('contract/_delete_form.html.twig') }}</li>
+                        </ul>
+
+                    </div>
+                </div>
+
+
+            {% else %}
+                <div class="row">
+
+                    <h5><i>Contrats archivé</i></h5>
+
                     <div class="col-4">
-
-
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
                                 <p class="card-text">{{ contrat.mission }}</p>
@@ -78,20 +105,25 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item"><p style="font-weight: bold"> Début du contrat</p>
                                     <p>{{ contrat.createdAt | date('d/m/Y') }}</p></li>
+
                                 <li class="list-group-item"><p style="font-weight: bold"> Fin du contrat</p>
                                     <p>{{ contrat.finishedAt | date('d/m/Y') }}</p></li>
+
                                 <li class="list-group-item"><p style="font-weight: bold"> Note Personelle</p>
                                     <p>{{ contrat.noteperso }}</p></li>
                                 <li class="list-group-item">
-                                    <a class="btn btn-primary" href="{{ path('app_contract_edit', {'id': contrat.id}) }}">edit</a>
+                                    {# <a class="btn btn-primary" href="{{ path('app_contract_edit', {'id': contrat.id}) }}">edit</a> #}
+                                    <a class="btn btn-primary"
+                                       href="{{ path('app_contract_edit', {'id': contrat.id,'clientid':client.id}) }}">edit</a>
 
                                     {{ include('contract/_delete_form.html.twig') }}</li>
                             </ul>
-
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endif %}
+            {% endfor %}
+
         </article>
     </section>
 {% endblock %}

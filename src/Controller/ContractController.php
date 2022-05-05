@@ -72,7 +72,7 @@ class ContractController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $contratRepository->add($contrat);
-            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_client_show', ['id' => $client->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('contract/new.html.twig', [
@@ -81,17 +81,15 @@ class ContractController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_contract_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Contrat $contrat, ContratRepository $contratRepository): Response
+    #[Route('/{id}/edit/{clientid}', name: 'app_contract_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Contrat $contrat, ContratRepository $contratRepository, $clientid): Response
     {
         $form = $this->createForm(ContratType::class, $contrat);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $contratRepository->add($contrat);
-            $clientId = $form->get('client')->getData();
-
-            return $this->redirectToRoute('app_client_show', [$clientId], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_client_show', ['id' => $clientid], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('contract/edit.html.twig', [
@@ -100,13 +98,13 @@ class ContractController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_contract_delete', methods: ['POST'])]
-    public function delete(Request $request, Contrat $contrat, ContratRepository $contratRepository): Response
+    #[Route('/{id}/{clientid}', name: 'app_contract_delete', methods: ['POST'])]
+    public function delete(Request $request, Contrat $contrat, ContratRepository $contratRepository, $clientid): Response
     {
         if ($this->isCsrfTokenValid('delete'.$contrat->getId(), $request->request->get('_token'))) {
             $contratRepository->remove($contrat);
         }
 
-        return $this->redirectToRoute('app_contract_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_client_show', ['id'=>$clientid], Response::HTTP_SEE_OTHER);
     }
 }

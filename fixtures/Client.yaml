@@ -1,0 +1,12 @@
+App\Entity\Client:
+  client{1..100}:
+    prenom: '<firstname()>'
+    nom: '<lastname()>'
+    entreprise: '<word()>'
+    mail: '<email()>'
+    telephone: '<phoneNumber()>'
+    notePerso: '70%? <sentence(6)>'
+    adresse: '<streetName()>'
+    codePostal: '<postcode()>'
+    ville: '<city()>'
+    secteur: '@category*'

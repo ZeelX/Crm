@@ -6,61 +6,70 @@
 
 
 
-        <div class="row">
-            <div class="col-3">
-                <div class="card">
-                    {{ form_start(formSearch) }}
-                    {{ form_end(formSearch) }}
-                </div>
+    <div class="dropstart">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            Recherche de clients
+        </a>
 
-                <div class="card">
-                        {{ form_start(form) }}
-                        {{ form_end(form) }}
-                </div>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-            </div>
-            <div class=" col-9">
-                <h1>Liste des Clients</h1>
+            <li class="card">
 
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th><input id="checkboxAll" type="checkbox" data-check-all> </th>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>Entreprise</th>
-                        <th>Télephone</th>
-                        <th>Mail</th>
-                        <th>Ville</th>
-                        <th>Secteur</th>
-                        <th>actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for client in clients %}
-                        <tr>
-                            <td><input id="check_client" type="checkbox" data-client-infos="{{client.id}},{{client.nom}},{{client.entreprise}},{{client.mail}}"></td>
-                            <td>{{ client.Nom }}</td>
-                            <td>{{ client.Prenom }}</td>
-                            <td>{{ client.Entreprise }}</td>
-                            <td>{{ client.Telephone }}</td>
-                            <td>{{ client.Mail }}</td>
-                            <td>{{ client.Ville }}</td>
-                            <td>{{ client.Secteur }}</td>
-                            <td>
-                                <a href="{{ path('app_client_show', {'id': client.id}) }}">show</a>
-                                <a href="{{ path('app_client_edit', {'id': client.id}) }}">edit</a>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="6">no records found</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                {{ form_start(formSearch) }}
+                {{ form_end(formSearch) }}
 
-            </div>
-        </div>
+            </li>
+            <li class="card">
+
+                {{ form_start(form) }}
+                {{ form_end(form) }}
+
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="col-12">
+        <h1>Liste des Clients</h1>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><input id="checkboxAll" type="checkbox" data-check-all></th>
+                <th>Nom</th>
+                <th>Entreprise</th>
+                <th class="d-none d-md-table-cell">Telephone</th>
+                <th class="d-none d-md-table-cell">Mail</th>
+                <th class="d-none d-lg-table-cell">Ville</th>
+                <th class="d-none d-xl-table-cell">Secteur</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td><input id="check_client" type="checkbox"
+                               data-client-infos="{{ client.id }},{{ client.nom }},{{ client.entreprise }},{{ client.mail }}">
+                    </td>
+                    <td>{{ client.Nom }}</td>
+                    <td>{{ client.Entreprise }}</td>
+                    <td class="d-none d-md-table-cell">{{ client.Telephone }}</td>
+                    <td class="d-none d-md-table-cell">{{ client.Mail }}</td>
+                    <td class="d-none d-lg-table-cell">{{ client.Ville }}</td>
+                    <td class="d-none d-xl-table-cell">{{ client.Secteur }}</td>
+                    <td>
+                        <a href="{{ path('app_client_show', {'id': client.id}) }}">show</a>
+                        <a href="{{ path('app_client_edit', {'id': client.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}
