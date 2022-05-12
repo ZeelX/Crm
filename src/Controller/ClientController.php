@@ -80,7 +80,7 @@ class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_client_show', methods: ['GET', 'POST'])]
+    #[Route('/client/{id}', name: 'app_client_show', methods: ['GET', 'POST'])]
     public function show(Client $client, ContratRepository $cor, int $id): Response
     {
         return $this->render('client/show.html.twig', [

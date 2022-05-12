@@ -87,7 +87,8 @@ export const exportToCSV = (filename: string, rows: object[], headers?: string[]
             }).join(separator);
         }).join('\n');
     const blob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
-    // if (navigator.msSaveBlob) { // using IE 10 + (yeurk)
+    // if (navigator.msSaveB
+    // lob) { // using IE 10 + (yeurk)
     //     navigator.msSaveBlob(blob, filename);
     // } else {
     const link = document.createElement('a');
